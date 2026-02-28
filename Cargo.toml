@@ -3,10 +3,8 @@ name = "dsos"
 version = "0.1.0"
 edition = "2024"
 
-[build]
-target = "x86_64-llvm-target.json"
-
 [dependencies]
+bootloader = "0.9"
 
 [profile.dev]
 panic = "abort"
