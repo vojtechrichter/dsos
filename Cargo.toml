@@ -1,7 +1,10 @@
 [package]
-name = "rust_os"
+name = "dsos"
 version = "0.1.0"
 edition = "2024"
+
+[build]
+target = "x86_64-llvm-target.json"
 
 [dependencies]
 
@@ -10,3 +13,8 @@ panic = "abort"
 
 [profile.release]
 panic = "abort"
+
+[[bin]]
+name = "dsos"
+test = false
+bench = false
