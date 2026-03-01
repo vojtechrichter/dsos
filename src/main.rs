@@ -3,23 +3,24 @@
 
 use core::panic::PanicInfo;
 
+use crate::vga_buffer::{Color, ColorCode, VgaBuffer, VgaWriter};
+
+mod vga_buffer;
+
 #[panic_handler]
 fn panic(_info: &PanicInfo) -> ! {
     loop {}
 }
 
-static HELLO: &[u8] = b"Hello World!";
-
 #[unsafe(no_mangle)]
 pub extern "C" fn _start() -> ! {
-    let vga_buffer = 0xb8000 as *mut u8;
+    let mut writer = VgaWriter {
+        column_position: 0,
+        color_code: ColorCode::new(Color::Red, Color::White),
+        buffer: unsafe { &mut *(0xb8000 as *mut VgaBuffer) },
+    };
     
-    for (i, &byte) in HELLO.iter().enumerate() {
-        unsafe {
-            *vga_buffer.offset(i as isize * 2) = byte;
-            *vga_buffer.offset(i as isize * 2 + 1) = 0xb;
-        }
-    }
+    writer.write_string("Ahoj jak se mas?");
     
     loop {}
 }
