@@ -1,0 +1,12 @@
+[package]
+name = "dsos"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+bootloader_api = "0.11"
+
+[[bin]]
+name = "dsos"
+test = false
+bench = false

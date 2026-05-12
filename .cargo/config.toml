@@ -1,10 +1,7 @@
-[build]
-target = "x86_64-llvm-target.json"
-
 [unstable]
-json-target-spec = true
-build-std = ["core", "compiler_builtins"]
-build-std-features = ["compiler-builtins-mem"]
-
-[target.'cfg(target_os = "none")']
-runner = "bootimage runner"
+bindeps = true
+# build-std intentionally omitted: as of cargo 1.95.0-nightly (2026-02-24) the
+# combination of `bindeps` with `build-std` triggers an internal cargo panic
+# in unit_dependencies.rs. `x86_64-unknown-none` is a tier-2 target with
+# precompiled `core`/`compiler_builtins`, so build-std isn't required to build
+# the kernel — `rustup target add x86_64-unknown-none` is enough.
